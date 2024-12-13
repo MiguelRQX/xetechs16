@@ -263,7 +263,7 @@ class AccountInvoice(models.Model):
                 break
 
         # Current time For the tag FechaHoraEmision
-        fecha = fields.Datetime.context_timestamp(self.with_context(tz=self.env.user.tz), datetime.datetime.now())
+        fecha = fields.Datetime.context_timestamp(self.with_context(tz=self.env.user.tz), datetime.datetime.combine(self.invoice_date, datetime.time(hour = 18, minute = 00, second = 00)))
         if fecha:
             fecha_str = str(fecha.strftime(megaprint_dateformat))
             self.fel_date = fecha_str
@@ -398,7 +398,7 @@ class AccountInvoice(models.Model):
             DatosCliente = self.get_datos_cliente((self.partner_vat if self.partner_vat else self.partner_id.vat))
             if DatosCliente:
                 nombreRec = DatosCliente[0] if DatosCliente[0] else "Consumidor Final"
-                calleRec = DatosCliente[1] if DatosCliente[1] else "Ciudad"
+                calleRec = ' '.join([self.partner_street or '', self.partner_id.street2 or '']) or (DatosCliente[1] if DatosCliente[1] else "Ciudad")
                 postalRec = self.partner_id.zip if self.partner_id.zip else "502"
                 paisRec = self.partner_id.country_id.code if self.partner_id.country_id.code else "GT"
                 municipioRec = self.partner_id.city if self.partner_id.city else ""
