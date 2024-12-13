@@ -1,0 +1,21 @@
+<odoo>
+<record id="view_invoice_name2" model="ir.ui.view">
+    <field name="name">view.invoice.name</field>
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_move_form"/>
+    <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="replace">
+					<field name='name' insivible="0"/>
+                    <field name='compute_name' invisible="1"/>
+                    <field name='compute_name_serie' invisible="1"/>
+                    <field name='partner_fel' invisible="1"/>
+                    <field name='street_receptor' invisible="1"/>
+                    <field name='zip_code_receptor' invisible="1"/>
+                    <field name='country_receptor' invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="partner_name_invoice" invisible="0"/>
+                </xpath>
+            </field>
+        </record>
+</odoo>

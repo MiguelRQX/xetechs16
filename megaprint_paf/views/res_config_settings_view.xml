@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form2" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.paf2</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="10"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Helpdesk" string="Helpdesk" data-key="meg" groups="megaprint_paf.group_megaprint_paf_manager">
+                    <h2>Megaprint PAF</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="active_paf"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="active_paf"/>
+                                <div class="text-muted">
+                                    Active para conexion con plataforma Megaprint PAF
+                                </div>
+                                <div class="content-group"  attrs="{'invisible': [('active_paf','=',False)]}">
+                                    <div class="mt16">
+                                        <span class="col-lg-3">Usuario: <field name="username_paf" attrs="{'required': [('active_paf', '=', True)]}"/></span>
+                                    </div>
+                                    <div class="mt16">
+                                        <span class="col-lg-3">Contraseña: <field name="password_paf" widget='password' attrs="{'required': [('active_paf', '=', True)]}"/></span>
+                                    </div>
+                                    <div class="mt16">
+                                        <span class="col-lg-3">Token: <field name="token_access_paf" attrs="{'required': [('active_paf', '=', True)]}"/></span>
+                                    </div>
+                                    <br/>
+                                    <button name="action_get_token" icon="fa-arrow-right" type="object" attrs="{'required': [('active_paf', '=', True)]}" string="Actualizar tipos de DTE" class="btn-link o_web_settings_access_rights"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_job_costing_config_settings" model="ir.actions.act_window">
+        <field name="name">Ajustes</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_id" ref="res_config_settings_view_form2"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'megaprint_paf'}</field>
+    </record>
+
+    <menuitem id="menu_megaprint_paf_general_settings"
+        name="Ajustes"
+        parent="megaprint_paf.menu_configuration_root"
+        sequence="0"
+        action="action_job_costing_config_settings"/>
+
+
+    <record id="res_company_view_megaprint_paf_form" model="ir.ui.view">
+        <field name="name">res.company.megaprint.paf.view</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page id="page_paf_token_access" string="PAF" attrs="{'invisible': [('active_paf', '=', False)]}">
+                    <group string="URL Megaprint PAF">
+                        <!---->
+                        <group>
+                            <label for="url_token_paf"/>
+                            <div>
+                                <field name="url_token_paf" nolabel="1"/>
+                            </div>
+                            <label for="url_type_dte_paf"/>
+                            <div>
+                                <field name="url_type_dte_paf"/>
+                            </div>
+                            <label for="url_validate_template"/>
+                            <div>
+                                <field name="url_validate_template"/>
+                            </div>
+                            <label for="url_rtu"/>
+                            <div>
+                                <field name="url_rtu"/>
+                            </div> 
+                            <label for="url_contract_request"/>
+                            <div>
+                                <field name="url_contract_request"/>
+                            </div>
+                            <label for="url_send_contract"/>
+                            <div>
+                                <field name="url_send_contract"/>
+                            </div>
+                        </group>
+                        <group>
+                            
+                        </group>
+                        <group>
+                            <field name="active_paf" invisible="1"/>
+                            <field name="username_paf" invisible="1"/>
+                            <field name="password_paf" invisible="1"/>
+                            <field name="token_access_paf" invisible="1"/>
+                        </group>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

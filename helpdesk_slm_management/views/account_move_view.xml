@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="account_move_view_form_extends" model="ir.ui.view">
+            <field name="name">account.move.view.form.extends</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='journal_div']" position="after">
+                    <field name="sla_id" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+</odoo>

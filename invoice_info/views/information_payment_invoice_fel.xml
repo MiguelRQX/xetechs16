@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<odoo>
+  <data>
+    <template id="information_payment_invoice_fel" inherit_id="account_invoice_megaprint.report_fel_format_document">
+      <xpath expr="//span[@t-field='o.narration']" position='after'>
+        <div style="font-size:13px">
+          <br/>
+          <strong>Información de Pago:</strong><br/>
+          Puedes realizar tu pago en la siguiente cuenta:<br/>
+          <p>
+            <strong>Banco Industrial</strong><br/>
+            <strong>Cuenta Monetaria en Q</strong><br/>
+            <strong>Nombre de la cuenta: Xetechs, S.A</strong><br/>
+            <strong>Número de cuenta: </strong> 144-006215-4<br/>
+          </p>
+          <p> Realizado tu pago, puedes enviarnos una imagen con los datos de tu transferencia o depósito a cxc@xetechs.com </p>
+                              
+        </div> 
+      </xpath>
+    </template>
+
+  </data>
+</odoo>
+
+
+
+        

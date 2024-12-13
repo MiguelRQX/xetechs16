@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_res_list_name_crm,access_res_list_name_crm,model_res_list_name_crm,base.group_user,1,1,1,1

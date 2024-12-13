@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="helpdesk_ticket_form_extends" model="ir.ui.view">
+            <field name="name">helpdesk.ticket.form.extends</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_timesheet"/>
+            <field name="arch" type="xml">
+                <field name="kanban_state" position="before">
+                    <widget name="web_ribbon" title="Soporte Vigente" bg_color="bg-success" attrs="{'invisible': [('hours_available', '&lt;=', 0.00), ('helpdesk_sla_id', '!=', False)]}"/>
+                    <widget name="web_ribbon" title="Soporte Consumido" bg_color="bg-danger" attrs="{'invisible': [('hours_available', '&gt;', 0.00), ('helpdesk_sla_id', '!=', False)]}"/>
+                    <widget name="web_ribbon" title="Suspendido" bg_color="bg-danger" attrs="{'invisible': [('helpdesk_sla_id', '!=', False)]}"/>
+                    <!--<widget name="web_ribbon" title="Soporte Expirado" bg_color="bg-danger" attrs="{'invisible': [('subscription_status', '!=', 'inactive')]}"/>-->
+                </field>
+                <notebook position="inside">
+                    <page name="page_helpdesk_sla_management" string="Contrato SLA">
+                        <group string="Cambios de Estado">
+                            <group>
+                                <field name="change_to_progress" />
+                            </group>
+                            <group>
+                                <field name="change_to_close" />
+                            </group>
+                        </group>
+                        <group string="Limites SLA">
+                            <group>
+                                <field name="helpdesk_sla_id"/>
+                                <field name="date_to_respond"/>
+                                <field name="date_to_close"/>
+                                <field name="days_to_respond"/>
+                                <field name="days_in_progress"/>
+                                <field name="days_to_close"/>
+                            </group>
+                            <group>
+                                <field name="state"/>
+                                <field name="date_in_progress"/>
+                            </group>
+                        </group>
+                        <group string="Horas Plan de Soporte">
+                            <group>
+                                <field name="contracted_hours"/>
+                                <field name="hours_consumed"/>
+                                <field name="hours_available"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+        <record id="helpdesk_stage_form_extends" model="ir.ui.view">
+            <field name="name">helpdesk.stage.form.extends</field>
+            <field name="model">helpdesk.stage</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_stage_view_form"/>
+            <field name="arch" type="xml">
+                <field name="is_close" position='after'>
+                    <field name="progress_stage"/>
+                </field>
+            </field>
+        </record>
+</odoo>

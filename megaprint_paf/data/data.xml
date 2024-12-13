@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--Secuencias-->
+        <record id="seq_contract_paf" model="ir.sequence">
+            <field name="name">Megaprint PAF</field>
+            <field name="code">contract.paf</field>
+            <field name="prefix">PAF</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="data_sw" model="paf.service">
+            <field name="name">Servicio de facturacion</field>
+            <field name="code">SW</field>
+        </record>
+        
+        <record id="data_fv" model="paf.service">
+            <field name="name">Servicio de Firma de Documento</field>
+            <field name="code">FV</field>
+        </record>
+        
+        <record id="data_if" model="paf.service">
+            <field name="name">Servicio de IFACERE</field>
+            <field name="code">IF</field>
+        </record>
+    </data>
+</odoo>

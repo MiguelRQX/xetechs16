@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="view_helpdesk_budget_hours_tree" model="ir.ui.view">
+            <field name="name">view.helpdesk.budget.hours.tree</field>
+            <field name="model">report.helpdesk.budget.hours</field>
+            <field name="arch" type="xml">
+                <tree string="Helpdesk Budget Hours" decoration-danger="residual &lt;= 0" decoration-success="residual &gt; 0" create="false">
+                    <field name="ticket_month"/>
+                    <field name="customer_id"/>
+                    <field name="parent_id"/>
+                    <!--<field name="category"/>
+                    <field name="month"/>
+                    <field name="year"/>-->
+                    <field name="amount_hours"/>
+                    <field name="contrated_hours"/>
+                    <field name="residual"/>
+                    <field name="percent" widget="progressbar"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_helpdesk_tracker_hours_pivot" model="ir.ui.view">
+            <field name="name">report.helpdesk.tracker.hours.pivot</field>
+            <field name="model">report.helpdesk.budget.hours</field>
+            <field name="arch" type="xml">
+                <pivot string="Helpdesk Analysis" display_quantity="true" disable_linking="True">
+                    <field name="customer_id" type="row"/>
+                    <field name="ticket_month" type="col"/>
+                    <field name="amount_hours" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="view_helpdesk_tracker_hours_graph" model="ir.ui.view">
+            <field name="name">report.project.tracker.hours.graph</field>
+            <field name="model">report.helpdesk.budget.hours</field>
+            <field name="arch" type="xml">
+                <graph string="Helpdesk Analysis" type="bar">
+                     <field name="parent_id" type="row"/>
+                     <field name="ticket_month" type="col"/>
+                     <field name="amount_hours" type="measure"/>
+                     <!--<field name="budget_hours" type="measure"/>-->
+                 </graph>
+             </field>
+        </record>
+
+        <record id="view_helpdesk_tracker_hours_search" model="ir.ui.view">
+            <field name="name">report.helpdesk.tracker.hours.search</field>
+            <field name="model">report.helpdesk.budget.hours</field>
+            <field name="arch" type="xml">
+                <search string="Helpdesk Analysis">
+                    <field name="ticket_month" />
+                    <field name="parent_id" operator="child_of"/>
+                    <separator/>
+                    <group expand="1" string="Group By">
+                        <filter string="Customer" name="group_customer" context="{'group_by': 'parent_id'}"/>
+                        <filter string="Month" name="group_month" context="{'group_by': 'ticket_month'}"/>
+                        <!--<filter string="Year" name="group_year" context="{'group_by': 'year'}"/>-->
+                    </group>
+                </search>
+            </field>
+        </record>
+
+       <record id="action_helpdesk_budget_hours" model="ir.actions.act_window">
+            <field name="name">Soporte Tecnico Consumos</field>
+            <field name="res_model">report.helpdesk.budget.hours</field>
+            <field name="view_mode">tree,graph,pivot</field>
+            <field name="search_view_id" ref="view_helpdesk_tracker_hours_search"/>
+            <field name="context">{'search_default_group_customer': 1}</field>
+            <field name="help"></field>
+        </record>
+
+        <menuitem id="menu_root_helpdesk_budget_hours" name="Soporte Tecnico Consumos" parent="helpdesk.helpdesk_ticket_report_menu_main" sequence="5"/>
+        <menuitem action="action_helpdesk_budget_hours" id="menu_helpdesk_budget_hours" name="Soporte Tecnico Consumos" parent="menu_root_helpdesk_budget_hours" sequence="1"/>
+
+</odoo>

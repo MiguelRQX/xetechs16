@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+    <odoo>
+
+    <record id="helpdesk_log_tree" model="ir.ui.view">
+        <field name="name">helpdesk.log.tree.view</field>
+        <field name="model">helpdesk.log</field>
+        <field name="arch" type="xml">
+            <tree create="false" edit="false">
+                <field name="change_date"/>
+                <field name="user_id"/>
+                <field name="last_stage_day_comparison" sum="Total de días"/>
+                <field name="previous_stage"/>
+                <field name="current_stage"/>
+            </tree>
+        </field>
+    </record>
+
+    </odoo>

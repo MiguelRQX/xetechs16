@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="contract_paf_filter" model="ir.ui.view">
+            <field name="name">contract.paf.search</field>
+            <field name="model">contract.paf</field>
+            <field name="arch" type="xml">
+                <search string="Search ">
+                    <group>
+                        <field name="name"/>
+                        <field name="partner_id"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="contract_paf_tree_view" model="ir.ui.view">
+            <field name="name">contract.paf.tree</field>
+            <field name="model">contract.paf</field>
+            <field name="arch" type="xml">
+                <tree string="Afiliacion de Emisor">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="payment_method"/>
+                    <field name="affiliation_iva"/>
+                    <field name="services_ids"/>
+                    <field name="user_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="contract_paf_form" model="ir.ui.view">
+            <field name="name">contract.paf.form</field>
+            <field name="model">contract.paf</field>
+            <field name="arch" type="xml">
+              <form string="Afiliacion" class="o_sale_order">
+                <header>
+                    <button name="action_get_rtu" string="Consultar RTU" class="oe_highlight" type="object" states="new"/>
+                    <button name="action_send_contract" string="Afiliar" class="oe_highlight" type="object" states="new"/>
+                    <button name="action_cancel" string="Cancelar Afiliacion" class="oe_highlight" type="object" states="new,done"/>
+                    <field name="state" widget="statusbar" statusbar_visible="new,done,cancel"/>
+                </header>
+                <sheet>
+                    <!--<div class="oe_button_box" name="button_box">
+                        <button name="preview_sale_order"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-globe icon">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Customer</span>
+                                <span class="o_stat_text">Preview</span>
+                            </div>
+                        </button>
+                        <button name="action_view_invoice"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-pencil-square-o"
+                            attrs="{'invisible': [('invoice_count', '=', 0)]}">
+                            <field name="invoice_count" widget="statinfo" string="Invoices"/>
+                        </button>
+                    </div>-->
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id" required="1" widget="res_partner_many2one" context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}" options='{"always_reload": True}'/>
+                            <field name="razon_social" readonly="1"/>
+                            <field name="nit_emisor" readonly="1"/>
+                            <field name="affiliation_iva"/>
+                            <field name="services_ids" widget="many2many_tags"/>
+                            <field name="dte_type_ids" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="date" required="1"/>
+                            <field name="user_id" readonly="1" force_save="1"/>
+                            <field name="company_id" readonly="1" force_save="1"/>
+                            <field name="payment_method" widget="radio"/>
+                            <field name="dte_qty"/>
+                            <field name="payment_month" attrs="{'invisible': [('payment_method', '=', '2')]}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="page_keys" string="Certificados/Llaves">
+                            <group>
+                                <group>
+                                    <field name="certificate_key"/>
+                                </group>
+                                <group>
+                                    <field name="private_key"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page name="page_establishment" string="Establecimientos">
+                            <field name="establishment_ids">
+                                <tree string="Establecimientos" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="street"/>
+                                    <field name="city"/>
+                                    <field name="state"/>
+                                    <field name="status"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+              </form>
+            </field>
+        </record>
+
+        <record id="action_contract_paf" model="ir.actions.act_window">
+            <field name="name">Afiliacion de Emisor</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">contract.paf</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="contract_paf_tree_view"/>
+            <field name="search_view_id" ref="contract_paf_filter"/>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Afiliacion de Emisores
+                </p>
+            </field>
+        </record>
+
+
+        <menuitem id="submenu_contract_paf" name="Afiliar Emisor" parent="megaprint_paf.menu_afiliaciones_root" action="action_contract_paf" sequence="1"/>
+    </data>
+</odoo>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!--Inherited Project Form View-->
+        <record id="inherit_project_view" model="ir.ui.view">
+            <field name="name">project.project.form</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='tag_ids']" position="after">
+                    <field name="total_budget"/>
+                    <field name="total_payment" invisible="1"/>
+                </xpath>
+                <xpath expr="//div[@class='oe_button_box']" position="inside">
+                    <button type="object" name="action_view_fms_budget" class="oe_stat_button" icon="fa-pencil-square-o">
+                        <field name="budget_request_count" widget="statinfo" string="Budget Request"/>
+                    </button>
+                    <button type="object" name="action_view_fms_payment" class="oe_stat_button" icon="fa-pencil-square-o">
+                        <field name="payment_request_count" widget="statinfo" string="Payment Request"/>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+        <menuitem id="menu_project"
+            name="Projects"
+            parent="root_menu_fms_app"
+            action="project.open_view_project_all_config"
+            sequence="1"/>
+    </data>
+</odoo>

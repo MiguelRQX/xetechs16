@@ -1,0 +1,19 @@
+<odoo>
+ <data>
+<record id="view_invoice_exchange_rate_tree" model="ir.ui.view">
+    <field name="name">invoice.exchange.rate.tree</field>
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_out_invoice_tree"/>
+    <field name="arch" type="xml">
+                <!-- find field description and add the field
+                    idea_ids after it -->
+                <xpath expr="//field[@name='invoice_date_due']" position="after">
+                    <field name="tc" optional="show"/>
+                    <field name="amount_untaxed" string="Tax Excluded" sum="Total" optional="hide"/>
+                    <field name="amount_total" string="Total" sum="Total" optional="show"/>
+                    <field name="amount_residual" string="Amount Due" sum="Amount Due" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

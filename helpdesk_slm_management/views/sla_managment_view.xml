@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_root_sla_contracts" name="Contratos SLA" sequence="1" parent="helpdesk.helpdesk_menu_config" groups="base.group_no_one"/>
+    <!--Tree View-->
+    <record id="sla_contract_view_tree" model="ir.ui.view">
+        <field name="name">sla.contract.tree</field>
+        <field name="model">sla.contract</field>
+        <field name="arch" type="xml">
+            <tree string="Contractos SLA" decoration-muted="state=='cancel'">
+                <field name="message_needaction" invisible="1"/>
+                <field name="name" string="Codigo Contrato"/>
+                <field name="contract_number"/>
+                <field name="partner_id"/>
+                <field name="contract_from"/>
+                <field name="contract_to"/>
+                <field name="subscription_id"/>
+                <field name="sla_level"/>
+                <field name="state"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="company_id"  groups="base.group_multi_company"/>
+           </tree>
+        </field>
+    </record>
+
+    <!--Form View-->
+    <record id="sla_contract_view_form" model="ir.ui.view">
+        <field name="name">sla.contract.view.form</field>
+        <field name="model">sla.contract</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <header>
+                    <button name="action_active" type="object" data-hotkey="shift+g" string="Activar SLA" class="oe_highlight" states="draft"/>
+                    <button name="%(helpdesk_slm_management.action_wizard_invoice_fel)d" attrs="{'invisible': [('contract_type', '!=', 'fel'), ('state', 'in', ('draft','cancel','expired'))]}" context="{'default_sla_id': active_id}" type="action" string="Facturar" class="oe_highlight"/>
+                    <field name="state" widget="statusbar" status="draft,active,unpaid,suspend,cancel,expire"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_invoices"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-pencil-square-o"
+                            context="{'default_sla_id': active_id}"
+                            attrs="{'invisible': [('contract_type', '=', 'helpdesk')]}">
+                            <field name="invoice_count" widget="statinfo" string="# Facturas"/>
+                        </button>
+                        <button name="action_view_tickets"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-search"
+                            attrs="{'invisible': [('contract_type', '=', 'fel')]}">
+                            <field name="helpdesk_ticket_count" widget="statinfo" string="# Tickets"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" class="field_name" readonly="1" force_save="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id" required="1"/>
+                            <field name="contract_from" />
+                            <field name="priority" widget="priority"/>
+                            <field name="subscription_id" domain="[('partner_id', '=', partner_id)]"/>
+                        </group>
+                        <group>
+                            <field name="contract_number" readonly="1" force_save="1"/>
+                            <field name="contract_to" />
+                            <field name="sla_level" />
+                            <field name="contract_type" readonly="1" force_save="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="page_support" string="Soporte Técnico" attrs="{'invisible': [('contract_type', '=', 'fel')]}">
+                            <group>
+                                <group>
+                                    <field name="sla_level" />
+                                    <field name="hours_consumed" />
+                                </group>
+                                <group>
+                                    <field name="contracted_hours" />
+                                    <field name="hours_available" />
+                                </group>
+                            </group>
+                        </page>
+                        <page name="page_support_sla" string="Condiciones" attrs="{'invisible': [('contract_type', '=', 'fel')]}">
+                            <group>
+                                <group>
+                                    <field name="days_to_respond" attrs="{'required': [('contract_type', '=', 'helpdesk')]}"/>
+                                    <field name="days_in_progress" attrs="{'required': [('contract_type', '=', 'helpdesk')]}" />
+                                    <field name="days_to_close" attrs="{'required': [('contract_type', '=', 'helpdesk')]}" />
+                                </group>
+                                <group></group>
+                            </group>
+                        </page>
+                        <page name="page_fel" string="Facturación Electronica" attrs="{'invisible': [('contract_type', '=', 'helpdesk')]}">
+                            <group>
+                                <group>
+                                   <field name="product_id" /> 
+                                </group>
+                                <group></group>
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="qty_dte" />
+                                    <field name="extra_price_dte" />
+                                </group>
+                                <group>
+                                    <field name="price_dte" />
+                                    <field name="total_dte" />
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sla_contracts" model="ir.actions.act_window">
+        <field name="name">SLA Soporte Técnico</field>
+        <field name="res_model">sla.contract</field>
+        <field name="view_mode">list,form</field>
+        <!--<field name="search_view_id" ref="helpdesk_tickets_view_search"/>-->
+        <field name="context">{'default_contract_type': 'helpdesk'}</field>
+        <field name="domain">[('contract_type', '=', 'helpdesk')]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Contratos SLA Soporte Técnico
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_sla_contracts" action="action_sla_contracts" sequence="1" parent="menu_root_sla_contracts" groups="base.group_no_one"/>
+
+    <record id="action_sla_contracts_fel" model="ir.actions.act_window">
+        <field name="name">SLA Facturación Electronica</field>
+        <field name="res_model">sla.contract</field>
+        <field name="view_mode">list,form</field>
+        <!--<field name="search_view_id" ref="helpdesk_tickets_view_search"/>-->
+        <field name="context">{'default_contract_type': 'fel'}</field>
+        <field name="domain">[('contract_type', '=', 'fel')]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Contratos SLA Soporte Técnico
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_sla_contracts_fel" action="action_sla_contracts_fel" sequence="2" parent="menu_root_sla_contracts" groups="base.group_no_one"/>
+</odoo>

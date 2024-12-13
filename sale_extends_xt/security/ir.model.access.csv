@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_xtechs_scope,xtechs_requeriments.xtechs_scope,model_xtechs_scope,base.group_user,1,1,1,1
+access_xtechs_scope_template,xtechs_requeriments.xtechs_scope_template,model_xtechs_scope_template,base.group_user,1,1,1,1
+access_xtechs_scope_template_lines,xtechs_requeriments.xtechs_scope_template_lines,model_xtechs_scope_template_lines,base.group_user,1,1,1,1
+access_sale_order_note,sale_extends_xt.sale_order_note,model_sale_order_note,base.group_user,1,1,1,1

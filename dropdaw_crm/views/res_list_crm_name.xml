@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_list_name_tree_view" model="ir.ui.view">
+        <field name="name">res.list.name.crm.tree.view</field>
+        <field name="model">res.list.name.crm</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+    <record id="res_list_name_crm_action" model="ir.actions.act_window">
+        <field name="name">Lista de Oportunidades</field>
+        <field name="res_model">res.list.name.crm</field>
+        <field name="binding_view_types">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="res_list_name_tree_view"/>
+    </record>
+    <menuitem id="menu_list_name_tree_view" name="Lista de oportunidades" parent="crm.crm_menu_config" action="res_list_name_crm_action" sequence="1"/>
+</odoo>

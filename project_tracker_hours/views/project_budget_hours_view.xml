@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="view_project_budget_hours_tree" model="ir.ui.view">
+            <field name="name">view.project.budget.hours.tree</field>
+            <field name="model">report.project.budget.hours</field>
+            <field name="arch" type="xml">
+                <tree string="Project Budget Hours" create="false">
+                    <field name="name"/>
+                    <field name="project_id"/>
+                    <field name="employee_id" widget="many2one_avatar_employee"/>
+                    <field name="month"/>
+                    <field name="year"/>
+                    <field name="amount_hours"/>
+                    <field name="budget_hours"/>
+                    <field name="residual"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_project_tracker_hours_pivot" model="ir.ui.view">
+            <field name="name">report.project.tracker.hours.pivot</field>
+            <field name="model">report.project.budget.hours</field>
+            <field name="arch" type="xml">
+                <pivot string="Project Analysis" display_quantity="true" disable_linking="True">
+                    <field name="project_id" type="row"/>
+                    <field name="name" type="col"/>
+                    <field name="amount_hours" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="view_project_tracker_hours_graph" model="ir.ui.view">
+            <field name="name">report.project.tracker.hours.graph</field>
+            <field name="model">report.project.budget.hours</field>
+            <field name="arch" type="xml">
+                <graph string="Project Analysis" type="bar">
+                     <field name="project_id" type="row"/>
+                     <field name="name" type="col"/>
+                     <field name="amount_hours" type="measure"/>
+                     <!--<field name="budget_hours" type="measure"/>-->
+                 </graph>
+             </field>
+        </record>
+
+        <record id="view_project_tracker_hours_search" model="ir.ui.view">
+            <field name="name">report.project.tracker.hours.search</field>
+            <field name="model">report.project.budget.hours</field>
+            <field name="arch" type="xml">
+                <search string="Tasks Analysis">
+                    <field name="name" />
+                    <field name="project_id" operator="child_of"/>
+                    <separator/>
+                    <group expand="1" string="Group By">
+                        <filter string="Project" name="group_project" context="{'group_by': 'project_id'}"/>
+                        <filter string="Month" name="group_month" context="{'group_by': 'month'}"/>
+                        <filter string="Year" name="group_year" context="{'group_by': 'year'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+       <record id="action_project_budget_hours" model="ir.actions.act_window">
+            <field name="name">Proyectos Consumos/Presupuestos de horas</field>
+            <field name="res_model">report.project.budget.hours</field>
+            <field name="view_mode">tree,graph,pivot</field>
+            <field name="search_view_id" ref="view_project_tracker_hours_search"/>
+            <field name="context">{'search_default_group_project': 1}</field>
+            <field name="help"></field>
+        </record>
+
+        <menuitem action="action_project_budget_hours" id="menu_project_budget_hours" name="Proyectos Consumos/Presupuestos de horas" parent="project.menu_project_report" sequence="5"/>
+
+</odoo>

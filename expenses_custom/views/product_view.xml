@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<odoo>
+
+	<record id="product_template_can_be_expense_form_inherit" model="ir.ui.view">
+		<field name="name">product.template.can.be.expense.form.inherit</field>
+		<field name="model">product.template</field>
+		<field name="inherit_id" ref="product.product_template_form_view"/>
+		<field name="arch" type="xml">
+			<div name="options" position="inside">
+				<span class="d-inline-block">
+					<field name="can_be_expensed"/>
+					<label for="can_be_expensed"/>
+				</span>
+			</div>
+		</field>
+	</record>
+
+</odoo>

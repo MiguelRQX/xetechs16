@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_fms_budget_tree" model="ir.ui.view">
+            <field name="name">fms.budget.tree</field>
+            <field name="model">fms.budget</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Freelancer Budget">
+                    <field name="project_id"/>
+                    <field name="amount"/>
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+        <record id="view_fms_budget_form" model="ir.ui.view">
+            <field name="name">fms.budget.form</field>
+            <field name="model">fms.budget</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Freelancer Budget">
+                     <header>
+                        <button name="action_reset_to_draft" type="object" string="Reset To Draft" attrs="{'invisible': [('state', 'in', ['budget_approved','level_1_approval','draft','level_2_approval'])]}"/>
+                        <button name="action_budget_request" type="object" string="Budget Request" attrs="{'invisible': ['|',('state', 'in', ['level_1_approval','level_2_approval','rejected','budget_approved']),('is_group_fms_budget_level', '=', False)]}"/>
+                        <button name="action_level_1_approve" type="object" string="Level 1 Approve" groups="abs_odoo_fms.group_fms_budget_level_1" attrs="{'invisible': [('state', 'in', ['budget_approved','rejected','draft','level_2_approval'])]}"/>
+                        <button name="action_level_2_approve" type="object" string="Level 2 Approve" groups="abs_odoo_fms.group_fms_budget_level_2" attrs="{'invisible': [('state', 'in', ['draft','level_1_approval','budget_approved','rejected'])]}"/>
+                        <button name="action_budget_rejected" type="object" string="Reject" attrs="{'invisible': [('state', 'in', ['rejected','budget_approved'])]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,level_1_approval,level_2_approval,budget_approved,rejected"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="project_id" required="1"/>
+                                <field name="amount"/>
+                                <field name="is_group_fms_budget_level" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="action_fms_budget_view" model="ir.actions.act_window">
+            <field name="name">Freelancer Budget</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">fms.budget</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_fms_budget_tree"/>
+        </record>
+        <menuitem id="root_menu_fms_app"
+            name="FMS"/>
+        <menuitem id="main_menu_fms"
+	   parent="root_menu_fms_app"
+           name="Freelancer Budget"
+           action="action_fms_budget_view"
+           sequence="2"/>
+    </data>
+</odoo>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form_fms" model="ir.ui.view">
+        <field name="name">res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group/group" position="inside">
+                <field name="cost" />
+                <field name="fms_rating" widget="priority"/>
+                <field name="nda" invisible="1"/>
+                <field name="non_compete" invisible="1" />
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Legal Documentation">
+                    <field name="document_warning" invisible="1" />
+                    <div class="alert alert-danger" role="alert" attrs="{'invisible': [('document_warning', 'in' ,(False, ''))]}">
+                        <field name="document_warning" />
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                        </div>
+                        <div class="col-sm-3">
+                        </div>
+                        <div class="col-sm-3">
+                            <b>Document</b>
+                        </div>
+                        <div class="col-sm-3">
+                            <b>Expiry Date</b>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <b>NDA</b>
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="action" class="btn" string="Send Document For Sign" name="%(abs_odoo_fms.nda_sign_documents)d" data-hotkey="o" />
+                        </div>
+                        <div class="col-sm-3">
+                            <field name="nda_attachment_id" attrs="{'required': [('nda_attachment_id', '!=', False)]}" readonly="1"/>
+                        </div>
+                        <div class="col-sm-3">
+                            <field name="nda_attachment_expiry_date" attrs="{'required': [('nda_attachment_id', '!=', False)],'invisible': [('nda_attachment_id', '==', False)]}"/>
+                        </div>  
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <b>Non Compete</b>
+                        </div>
+                        <div class="col-sm-3">
+                            <button type="action" class="btn" string="Send Document For Sign" name="%(abs_odoo_fms.non_compete_sign_documents)d" data-hotkey="o"/>
+                        </div>
+                        <div class="col-sm-3">
+                            <field name="non_compete_attachment_id" attrs="{'required': [('non_compete_attachment_id', '!=', False)]}" readonly="1"/>
+                        </div>
+                        <div class="col-sm-3">
+                            <field name="non_compete_attachment_expiry_date" attrs="{'required': [('non_compete_attachment_id', '!=', False)],'invisible': [('non_compete_attachment_id', '==', False)]}"/>
+                        </div>
+                    </div>
+                </page>
+                <page string="Bank Details">
+                    <group>
+                        <group>
+                            <field name="payment_option"/>
+                        </group>
+                    </group>
+                    <group attrs="{'invisible': [('payment_option','!=','paypal')]}">
+                        <group name="paypal_detail">
+                            <field name="paypal_id"/>
+                        </group>
+                    </group>
+                    <group attrs="{'invisible': [('payment_option','!=','wire_transfer')]}">
+                        <group name="wire_transfer_detail">
+                            <field name="bank_name"/>
+                            <span class="o_form_label o_td_label" name="bank_address">
+                                <b>Address</b>
+                            </span>
+                            <div class="o_address_format">
+                                <field name="bank_street" placeholder="Street..." class="o_address_street"/>
+                                <field name="bank_street2" placeholder="Street 2..." class="o_address_street" />
+                                <field name="bank_city" placeholder="City" class="o_address_city"/>
+                                <field name="bank_state_id" class="o_address_state" placeholder="State" 
+                                    options="{'no_open': True, 'no_quick_create': True}" 
+                                    context="{'country_id': bank_country_id, 'default_country_id': bank_country_id, 'zip': bank_zip}"/>
+                                <field name="bank_zip" placeholder="ZIP" class="o_address_zip"/>
+                                <field name="bank_country_id" placeholder="Country" class="o_address_country" 
+                                    options="{'no_open': True, 'no_create': True}"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="bank_phone_number" widget="phone"/>
+                            <field name="bank_account_name"/>
+                            <field name="bank_account_number"/>
+                            <field name="swift_code"/>
+                            <field name="iban_code"/>
+                        </group>
+                    </group>
+                </page>
+                <page string="FMS Performance">
+                    <field name="fms_performance_ids" nolabel="1">
+                        <tree editable="bottom">
+                            <field name="date" required="1"/>
+                            <field name="review" required="1"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+    <menuitem id="main_menu_customer"
+	    parent="root_menu_fms_app"
+            name="Contacts"
+            action="base.action_partner_form"
+            sequence="4"/>
+</odoo>

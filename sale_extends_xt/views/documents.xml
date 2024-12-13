@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+      id="xtechs_proyects"
+      parent="sale.product_menu_catalog"
+      name="Proyectos"
+      sequence="40"
+      />
+</odoo>

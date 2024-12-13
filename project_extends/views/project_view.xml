@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="project_form_view_inherit" model="ir.ui.view">
+            <field name="name">project.project.form.inherit</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.project_project_view_form_simplified"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='alias_def']" position="after">
+                    <field name="date_start" required="1"/>
+                    <field name="date_finished" required="1"/>
+                    <field name="total_week" required="1"/>
+                    <field name="hour_budget" required="1"/>
+                    <field name="project_description" required="0"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="project_form_view_inherit2" model="ir.ui.view">
+            <field name="name">project.project.form.inherit2</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='settings']" position="after">
+                    <page name="misc" string="Misc">
+                        <group>
+                            <group string="Otra Informacion">
+                                <field name="date_start" required="1"/>
+                                <field name="date_estimated" invisible="1"/>
+                                <field name="date_finished" required="1"/>
+                                <field name="total_week" required="1"/>
+                                <field name="current_week"/>
+                                <field name="project_description" required="0"/>
+                                <field name="project_progress" widget="progressbar"/>
+                                <field name="real_progress" widget="progressbar"/>
+                                <field name="spi" widget="progressbar"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="project_task_form_view_extends" model="ir.ui.view">
+            <field name="name">projask.form.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='description']" position="replace">
+                    <group string="Descripcion">
+                        <field name="description"  type="html" nolabel="1"/>
+                    </group>
+                    <group string="Criterios de Aceptacion">
+                        <field name="criteria_of_acceptance"  type="html" nolabel="1"/>
+                    </group>
+                    <group string="Motivos de la Tarea">
+                        <field name="reason_of_task"  type="html" nolabel="1"/>
+                    </group>
+                    <group string="Requisitos">
+                        <field name="requeriments"  type="html" nolabel="1"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="project_form_timesheet_view_inherit" model="ir.ui.view">
+            <field name="name">project.timesheet.form.inherit2</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="hr_timesheet.project_project_view_form_simplified_inherit_timesheet"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='allow_timesheets']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+<!--        <record id="project_form_timesheet_view_inherit3" model="ir.ui.view">-->
+<!--            <field name="name">project.timesheet.form.inherit3</field>-->
+<!--            <field name="model">project.project</field>-->
+<!--            <field name="inherit_id" ref="sale_timesheet_enterprise.project_project_view_form_simplified_inherit"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//field[@name='allow_billable']" position="attributes">-->
+<!--                    <attribute name="invisible">1</attribute>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+
+        <record id="project_task_form_view_inherit" model="ir.ui.view">
+            <field name="name">project.task.form.inherit3</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project_task_extends.project_task_type_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='task_type_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

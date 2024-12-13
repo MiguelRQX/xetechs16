@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+        <record id="view_sale_order_form_invoice_amounts_inherit" model="ir.ui.view">
+            <field name="name">view.sale.order.form.invoice.amounts.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <!-- find field description and add the field
+                    idea_ids after it -->
+                <xpath expr="//field[@name='amount_total']" position="after">
+                    <field name="total_invoiced" invisible="0"/>
+                    <field name="amount_due" invisible="0"/>
+                    <field name="total_paid" invisible="0"/>
+                    <field name="invoice_pending" invisible="0"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="xtechs_scope_view_form" model="ir.ui.view">
+        <field name="name">xtechs.scope.view.form</field>
+        <field name="model">xtechs.scope</field>
+        <field name="arch" type="xml">
+            <form string="Alcances de implementación">
+                <sheet>
+                 <field name="img" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;img&quot;}"/>
+                    <group>
+                    <label for="scope" string="Alcance"/>
+                        <h1>
+                            <field name="scope" default_focus="1" placeholder="Alcance" />
+                        </h1>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="active" />
+                            <label for="dev_time"/>
+                            <div class="o_row">
+                                <field name="dev_time"/>
+                                <field name="uom_id" nolabel="1"/>
+                            </div>
+                            <label for="time"/>
+                            <div class="o_row">
+                                <field name="time"/>
+                                <field name="uom_id" nolabel="1"/>
+                            </div>
+                            <field name="total_time"/>
+                            <field name="name" invisible="1" />
+                        </group>
+                        <group>
+                            <field name="company_id"  attrs="{'invisible': [('hide_company', '=', True)], 'required':[('hide_company','=', False)]}" />
+                            <field name="hide_company" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="description" string="Descripción">
+                            <field name="description" />
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="xtechs_scope_view_tree">
+        <field name="name">xtechs.scope.view.tree</field>
+        <field name="model">xtechs.scope</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="scope" />
+                <field name="active" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="xtechs_scope_action" model="ir.actions.act_window">
+        <field name="name">Alcances de implementación</field>
+        <field name="res_model">xtechs.scope</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Crear Alcance</p>
+        </field>
+    </record>
+
+    <menuitem id="xtechs_scope_menu" action="xtechs_scope_action" 
+        parent="xtechs_proyects" sequence="102"/>
+
+</odoo>

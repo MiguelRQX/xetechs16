@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+abs_odoo_fms.access_fms_performance,access_fms_performance,abs_odoo_fms.model_fms_performance,base.group_user,1,1,1,1
+abs_odoo_fms.access_fms_budget,access_fms_budget,abs_odoo_fms.model_fms_budget,base.group_user,1,1,1,1
+abs_odoo_fms.access_payment_management,access_payment_management,abs_odoo_fms.model_payment_management,base.group_user,1,1,1,1
+abs_odoo_fms.access_supporting_documentation,access_supporting_documentation,abs_odoo_fms.model_supporting_documentation,base.group_user,1,1,1,1
+abs_odoo_fms.access_legal_document_sign_wizard,access_legal_document_sign_wizard,abs_odoo_fms.model_legal_document_sign_wizard,base.group_user,1,1,1,1

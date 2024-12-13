@@ -1,0 +1,10 @@
+<odoo>
+
+
+    <record id="group_megaprint_paf_manager" model="res.groups">
+        <field name="name">Administrador Megaprint PAF</field>
+        <field name="implied_ids" eval="[(4, ref('account.group_account_manager'))]"/>
+    </record>
+
+
+</odoo>

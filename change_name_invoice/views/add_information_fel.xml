@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<odoo>
+ <data>
+ 	<template id="add_information_fel" inherit_id="account.report_invoice_document">
+     <xpath expr="//t[@t-set='address']" position='replace'>
+     <div id="information_fel" class="mt16">
+                  <t t-if="o.fel_serie" class="mt16">
+                  <div class="row">
+                            <div class="col-6">
+                            </div>
+                            <div class="col-6">
+                              <span t-field="o.partner_fel" /><br/> 
+                              <span t-field="o.street_receptor"/><br/>
+                              <t>Cliente</t>:<span t-field="o.partner_fel" /><br/> 
+                                <t>Dirección</t>:<span t-field="o.street_receptor"/><br/>
+                                <!--<span t-if="o.zip_code_receptor != ''" t-field="o.zip_code_receptor"/><br/>
+                                <span t-if="o.country_receptor != ''" t-field="o.country_receptor"/><br/>
+                                -->
+                                <t>Nit</t>: <span t-field="o.partner_id.vat"/><br/><br/>
+                            </div>
+                        </div>
+                </t> 
+                <t t-else="" class="mt16">
+                  <div class="row">
+                            <div class="col-6">
+                            </div>
+                            <div class="col-6">
+                                <span t-field="o.partner_fel" /><br/> 
+                                <span t-field="o.partner_id.street"/><br/> 
+                                <span t-field="o.partner_id.city"/> <span t-field="o.partner_id.state_id.code"/> <span t-field="o.partner_id.zip"/><br/>
+                                <span t-field="o.partner_id.country_id.name"/><br/>  
+                                <t>Nit</t>: <span t-field="o.partner_id.vat"/><br/><br/>
+                            </div>
+                        </div>
+                </t> 
+  </div> 
+            </xpath>
+    </template>
+    </data>
+</odoo>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="dte_type_filter" model="ir.ui.view">
+            <field name="name">dte.type.search</field>
+            <field name="model">dte.type</field>
+            <field name="arch" type="xml">
+                <search string="Search ">
+                    <group>
+                        <field name="paf_id"/>
+                        <field name="name"/>
+                        <field name="code"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="dte_type_tree_view" model="ir.ui.view">
+            <field name="name">dte.type.tree</field>
+            <field name="model">dte.type</field>
+            <field name="arch" type="xml">
+                <tree string="Tipo de DTE" editable="bottom">
+                    <field name="paf_id"/>
+                    <field name="name"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_dte_type">
+            <field name="name">Tipo de DTE</field>
+            <field name="res_model">dte.type</field>
+            <field name="view_mode">tree</field>
+            <field name="search_view_id" ref="dte_type_filter"/>
+        </record>
+
+        <!--<record model="ir.actions.act_window.view" id="action_satdte_frases_tree_view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="satdte_frases_tree_view"/>
+            <field name="act_window_id" ref="satdte_frases"/>
+        </record>-->
+
+        <menuitem id="submenu_dte_type" name="Tipos de DTE" parent="megaprint_paf.menu_configuration_root" action="megaprint_paf.action_dte_type" sequence="1"/>
+    </data>
+</odoo>

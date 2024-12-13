@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="sale_currency_tree">
+            <field name="name">sale.inherit.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='amount_total']" position="after">
+                    <field name="company_currency_amount" invisible="0" string="Total GTQ" sum='total' widget="monetary" options="{'currency_field': 'company.currency_id'}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_payment_management_tree" model="ir.ui.view">
+        <field name="name">payment.management.tree</field>
+        <field name="model">payment.management</field>
+        <field name="arch" type="xml">
+            <tree string="Payment Management">
+                <field name='name' decoration-bf="1"/>
+                <field name='fms_id'/>
+                <field name='project_id'/>
+                <field name='amount_claimed'/>
+                <field name='total_of_hours'/>
+                <field name="fms_rating" widget="priority" string="FMS Rating"/>
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+    <record id='view_payment_management_form' model='ir.ui.view'>
+        <field name="name">payment.management.form</field>
+        <field name="model">payment.management</field>
+        <field name="arch" type="xml">
+            <form string="Payment Management">
+                <header>
+                    <button name="action_reset_to_draft" type="object" string="Reset To Draft" attrs="{'invisible': [('state', 'in', ['payment_approved','level_1_approval','draft','level_2_approval'])]}"/>
+                    <button name="action_payment_request" type="object" string="Payment Request" attrs="{'invisible': ['|',('state', 'in', ['level_1_approval','level_2_approval','rejected','payment_approved']),('is_fms_budget_level', '=', False)]}"/>
+                    <button name="action_level_1_approve" type="object" string="Level 1 Approve" groups="abs_odoo_fms.group_fms_budget_level_1" attrs="{'invisible': [('state', 'in', ['payment_approved','rejected','draft','level_2_approval'])]}"/>
+                    <button name="action_level_2_approve" type="object" string="Level 2 Approve" groups="abs_odoo_fms.group_fms_budget_level_2" attrs="{'invisible': [('state', 'in', ['draft','level_1_approval','payment_approved','rejected'])]}"/>
+                    <button name="action_payment_rejected" type="object" string="Reject" attrs="{'invisible': [('state', 'in', ['rejected','payment_approved'])]}"/>
+                    <button name="action_create_vendor_bill" string="Create Vendor Bill" type="object" class="btn-primary" attrs="{'invisible': ['|',('state', 'in', ['draft','level_1_approval','rejected','level_2_approval']),('bill_count', '>=', 1)]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,level_1_approval,level_2_approval,payment_approved,rejected"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="open_vendor_bill" icon="fa-pencil-square-o" attrs="{'invisible': ['|',('state', 'in', ['draft','level_1_approval','level_2_approval','rejected']),('bill_count', '=', 0)]}">
+                            <field name="bill_count" string="Vendor Bill" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name='name'/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name='fms_id' required="1"/>
+                        <field name='project_id' required="1"/>
+                        <field name='contract_type' required="1"/>
+                        <field name='amount_claimed' required="1"/>
+                        <field name='total_of_hours' required="1"/>
+                        <field name="actual_amount" attrs="{'invisible': [('contract_type', 'in', ['fix_cost'])]}"/>
+                        <field name='is_fms_budget_level' invisible="1"/>
+                        <field name="fms_rating" widget="priority" string="FMS Rating"/>
+                    </group>
+                    <notebook>
+                        <page string= "Supporting Documentation">
+                            <field name="supporting_documentation_ids">
+                                <tree editable="bottom">
+                                     <field name='name'/>
+                                     <field name='attachment_ids' widget="many2many_binary" class="oe_inline"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_payment_management" model="ir.actions.act_window">
+        <field name="name">Payment Management</field>
+        <field name="res_model">payment.management</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_id" ref="view_payment_management_tree"></field>
+    </record>
+    <menuitem id="main_menu_payment_management"
+	    parent="root_menu_fms_app"
+            name="Payment Management"
+            action="action_payment_management"
+            sequence="3"/>
+</odoo>

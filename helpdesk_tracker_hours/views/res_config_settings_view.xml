@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.paf</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="10"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Helpdesk" string="Helpdesk" data-key="helpdesk_tracker_hours" groups="helpdesk.group_helpdesk_manager">
+                    <h2>Helpdesk</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <!--<field name="active_paf"/>-->
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <!--<label for="active_paf"/>-->
+                                <div class="text-muted">
+                                    Envio de informes de horas de soporte tecnico
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <span class="col-lg-3">Enviar cada: <field name="schedule_type" required="1"/></span>
+                                    </div>
+                                    <div class="mt16">
+                                        <span class="col-lg-3">Enviar correo a: <field name="user_to_id" required="1"/></span>
+                                    </div>
+                                    <div class="mt16">
+                                        <span class="col-lg-3">Enviar CC a: <field name="user_cc_id" required="1"/></span>
+                                    </div>
+                                    <!--<div class="mt16">
+                                        <span class="col-lg-3">Token: <field name="token_access_paf" attrs="{'required': [('active_paf', '=', True)]}"/></span>
+                                    </div>
+                                    <br/>
+                                    <button name="action_get_token" icon="fa-arrow-right" type="object" attrs="{'required': [('active_paf', '=', True)]}" string="Actualizar tipos de DTE" class="btn-link o_web_settings_access_rights"/>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_heldesk_config_settings" model="ir.actions.act_window">
+        <field name="name">Ajustes</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_id" ref="res_config_settings_view_form"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'helpdesk_tracker_hours'}</field>
+    </record>
+
+    <menuitem id="menu_helpdesk_general_settings"
+        name="Ajustes"
+        parent="helpdesk.helpdesk_menu_config"
+        sequence="0"
+        action="action_heldesk_config_settings"/>
+
+
+</odoo>

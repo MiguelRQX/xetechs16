@@ -1,0 +1,70 @@
+<odoo>
+    <data>
+        <template id="customer_hours_document">
+            <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                    <div class="page">
+                        <!--<t t-set="folio_cont" t-value="folio"/>-->
+                        <!--<t t-foreach="data" t-as="o">-->
+                            <!--<div class="row mt-5">
+                                <h5 style="color:white;">_</h5>
+                            </div>-->
+                            <!--<div class="row mt-5">
+                                <div class="col-1"/>
+                                <div class="col-10">-->
+                                <h3>
+                                    <center>
+                                        <p><strong>REPORTE DE HORAS</strong></p>
+                                        <!--<t t-set="folio_cont" t-value="folio"/>-->
+                                        <t t-set="from" t-value="date_from"/>
+                                        <p><strong>DEL: <![CDATA[&nbsp;]]> <span t-esc="date_from"/><![CDATA[&nbsp;]]>AL: <![CDATA[&nbsp;]]><span t-esc="date_to"/></strong></p>
+                                    </center>
+                                </h3>
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Cliente</th>
+                                            <th class="text-center">Empleado</th>
+                                            <th class="text-center">Fecha</th>
+                                            <th class="text-center">Ticket</th>
+                                            <th class="text-center">Solicitado</th>
+                                            <th class="text-center">Horas</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="data" t-as="o">
+                                            <t t-if="o.get('type') == 'customer'">
+                                                <tr style="background-color: #A5A4A4;">
+                                                    <td colspan="5"><strong><span t-esc="o.get('partner')"/></strong></td>
+                                                    <!--<td><span t-esc="o.get('employee')"/></td>
+                                                    <td><span t-esc="o.get('date')"/></td>
+                                                    <td><span t-esc="o.get('ticket')"/></td>
+                                                    <td><span t-esc="o.get('contact')"/></td>-->
+                                                    <td class="text-right"><strong><span t-esc="'%02d:%02d' % (int(o.get('hours')), o.get('hours') % 1 * 60)"/></strong></td>
+                                                </tr>
+                                            </t>
+                                            <t t-if="o.get('type') == 'line'">
+                                                <tr>
+                                                    <td><span t-esc="o.get('partner')"/></td>
+                                                    <td><span t-esc="o.get('employee')"/></td>
+                                                    <td><span t-esc="o.get('date')"/></td>
+                                                    <td><span t-esc="o.get('ticket')"/></td>
+                                                    <td><span t-esc="o.get('contact')"/></td>
+                                                    <td class="text-right"><span t-esc="'%02d:%02d' % (int(o.get('hours')), o.get('hours') % 1 * 60)"/></td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                    </tbody>
+                                </table>
+                                <!--</div>
+                            </div>-->
+                            <!--<div style="page-break-after:always;"></div>-->
+                        <!--</t>-->
+                    </div>
+                </t>
+            </t>
+        </template>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,22 @@
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="task_page_analytic_inherit_view" model="ir.ui.view">
+            <field name="name">task_page_analytic_develop</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <page name="extra_info" position ="after">
+                    <page name="develop_hours" string="Horas De Desarrollo">
+
+                        <group>
+                            <tree>
+                                <field name="analytic_line_ids" />
+                            </tree>
+                        </group>
+                    </page>
+                </page>
+            </field>
+        </record>
+    </data>
+</odoo>

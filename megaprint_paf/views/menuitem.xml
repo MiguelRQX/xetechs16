@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <!-- Menu root Megaprint PAF Root -->
+        <menuitem id="megaprint_paf_root"
+            name="PAF"
+            web_icon="megaprint_paf,static/description/icon.png"
+            sequence="8"/>
+        
+        <menuitem id="menu_configuration_root"
+            name="Configuracion"
+            parent="megaprint_paf.megaprint_paf_root"
+            sequence="100"/>
+        
+        <menuitem id="menu_afiliaciones_root"
+            name="Afiliaciones"
+            parent="megaprint_paf.megaprint_paf_root"
+            sequence="1"/>
+
+        <!--Submenu Megaprint PAF-->
+</odoo>

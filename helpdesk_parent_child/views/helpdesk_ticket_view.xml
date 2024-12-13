@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<odoo>
+	<record id="helpdesk_ticket_view_inherit2" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.inherit</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_open_helpdesk_ticket']" position="before">
+                <button class="oe_stat_button" name="action_view_ticket" icon="fa-ticket"
+                    type="object"  context="{'default_parent_id':active_id}" attrs="{'invisible': [('ticket_count', '&lt;', 1)]}">
+                    <field name="ticket_count" string="Child Tickets" widget="statinfo" />
+                </button>
+            </xpath>
+            <xpath expr="//button[@name='assign_ticket_to_self']" position="after">
+                <button name="create_child_ticket" context="{'default_parent_id':active_id}" string="Create Child Ticket" attrs="{'invisible': [('is_close','=',True)]}" type="object" class="oe_highlight" groups="helpdesk.group_helpdesk_user"/>
+            </xpath>
+            <xpath expr="//field[@name='tag_ids']" position="after">
+            	<field name="parent_id"/>
+            	<field name="is_close" invisible="1"/>
+            </xpath>
+            <xpath expr="//sheet" position="inside">
+            	<notebook>
+            		<page string="Child Tickets">
+            			<field name="child_ids" nolabel="1" context="{'default_partner_id': partner_id,'default_ticket_type_id': ticket_type_id, 'default_tag_ids': tag_ids, 'default_priority': priority, 'default_parent_id': active_id}"/>
+            		</page>
+            	</notebook>
+            </xpath>
+        </field>
+    </record>
+</odoo>

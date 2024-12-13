@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <record id="view_sale_order_form_inherit4" model="ir.ui.view">
+            <field name="name">view.sale.order.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="template_id"/>
+                    <field name="discount_xt" invisible="1"/>
+                    <field name="price_xt" invisible="1"/>
+                    <field name="note_xt" invisible="1" force_save="1"/>
+                    <field name="note_count_xt" invisible="1" force_save="1"/>
+                    <field name="global_discount_xt" invisible="1" force_save="1"/>
+                    <field name="so_approved" invisible="1" force_save="1"/>
+                </xpath>
+                
+<!--                 <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="save_order_xt" attrs="{'required': ['|', ('state', 'in', ['draft']), ('price_xt', '=', True), ('note_xt', '=', True)]}"/>
+                </xpath> -->
+                
+                <xpath expr="//field[@name='currency_id']" position="before">
+                    <label for="global_discount"/>
+                    <div class="o_row">
+                        <field name="global_discount"/>
+                        <button name="set_global_discount" string="Actualizar" type="object" class="btn-link mb-1 px-0" icon="fa-refresh"/>
+                    </div>
+                </xpath>
+                
+                <xpath expr="//page[@name='order_lines']" position="after">
+                    <page string="Cambios al Descuento" name="discount_changes" attrs="{'invisible': [('note_xt', '=', False)], 'required': [('note_xt', '=', True)]}">
+                        <field name="save_order_xt" attrs="{'required': ['|', ('state', 'in', ['draft']), ('price_xt', '=', True), ('note_xt', '=', True)]}"/>
+                        <field name="discount_note_xt">
+                            <tree editable="bottom">
+                                <field name="note_change_date" force_save="1"/>
+                                <field name="name" force_save="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+                
+                <xpath expr="//field[@name='state']" position="replace">
+                    <field name="state" widget="statusbar" force_save="1" statusbar_visible="draft,approved,sent,sale"/>
+                </xpath>
+                
+                <xpath expr="//button[@name='action_quotation_send'][1]" position="replace">
+                    <button name="action_quotation_send" string="Enviar por correo electrónico" type="object" class="btn-primary" data-hotkey="g" attrs="{'invisible': ['|', ('state', 'not in', ['approved']), ('so_approved', '=', False)]}"/>
+                </xpath>
+
+                <xpath expr="//button[@name='action_confirm'][2]" position="replace">
+                    <button name="action_confirm" data-hotkey="v" string="Confirmar" type="object" attrs="{'invisible': ['|', ('state', 'not in', ['approved']), ('so_approved', '=', False)]}"/>
+                </xpath>
+                
+<!--                 <xpath expr="//button[@name='action_quotation_send']" position="before">
+                    <button name="approve_so" string="Aprobar SO" type="object" class="btn-primary" invisible="1"/>
+                </xpath> -->
+                
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_template_id']" position="attributes">
+                    <attribute name="options">{'no_quick_create': True, 'no_create': True}</attribute>
+                </xpath>
+                
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="attributes">
+                    <attribute name="readonly">True</attribute>
+                </xpath>
+                
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="before">
+                    <field name="so_approved_line" invisible="1"/>
+                    <field name="so_approved_line_discount" />
+                </xpath>
+                
+                <xpath expr="//page[@name='order_lines']" position="after">
+                    <page name="scopes_ids" string="Detalle de Alcances">
+                        <field name="line_ids" colspan="4" nolabel="1" widget="section_and_note_one2many"  >
+                            <tree editable="bottom">
+                                <control>
+                                    <create
+                                        string="Añadir alcance"
+                                    />
+                                    <create
+                                        string="Añadir sección"
+                                        context="{'default_display_type': 'line_section'}"
+                                    />
+                                    <create
+                                        string="Añadir nota"
+                                        context="{'default_display_type': 'line_note'}"
+                                    />
+                                </control>
+                                <field name="display_type" invisible="1"/>
+                                <field name="sequence" widget="handle" />
+                                <field name="scope_id" attrs="{'required': [('display_type', '=', False)]}"/>
+                                <field name="description" attrs="{'required': [('display_type', '=', False)]}"/>
+                                <field name="time" sum="Total" />
+                                <field name="uom_id" />
+                                <field name="name" widget="section_and_note_text" width="0" string="."/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page name="page_notes" string="Notas">
+                        <group>
+                            <field name="header_note" widget="html"/>
+                            <field name="footer_note" widget="html"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="view_sale_order_form_group_only_price_inherit" model="ir.ui.view">
+            <field name="name">view.sale.order.form.group.only.price.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form" />
+            <field name="groups_id" eval="[(4, ref('sale_extends_xt.group_sales_price_xt'))]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="attributes">
+                    <attribute name="readonly">False</attribute>
+                </xpath>
+            </field>    
+        </record>
+        
+        <record id="view_sale_order_form_group_only_inherit" model="ir.ui.view">
+            <field name="name">view.sale.order.form.group.only.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form" />
+            <field name="groups_id" eval="[(4, ref('sale_extends_xt.group_sales_admin_xt'))]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_quotation_send'][1]" position="before">
+                    <button name="approve_so" string="Aprobar SO" type="object" class="btn-primary" attrs="{'invisible': ['|', ('state', 'not in', ['draft']), ('so_approved', '=', True)]}" group=""/>
+                </xpath>
+            </field>    
+        </record>
+        
+    </data>
+</odoo>

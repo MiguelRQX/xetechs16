@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dte_type_user,access_dte_type_user,model_dte_type,account.group_account_user,1,1,1,0
+access_dte_type_manager,access_dte_type_manager,model_dte_type,group_megaprint_paf_manager,1,1,1,1
+access_contract_paf_user,access_contract_paf_user,model_contract_paf,account.group_account_user,1,1,1,0
+access_contract_paf_manager,access_contract_paf_manager,model_contract_paf,group_megaprint_paf_manager,1,1,1,1
+access_services_user,access_services_user,model_paf_service,account.group_account_user,1,1,1,0
+access_services_manager,access_services_manager,model_paf_service,group_megaprint_paf_manager,1,1,1,1
+access_establishment_user,access_establishment_user,model_customer_establishment,account.group_account_user,1,1,1,0
+access_establishment_manager,access_establishment_manager,model_customer_establishment,group_megaprint_paf_manager,1,1,1,1

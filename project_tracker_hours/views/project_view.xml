@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<odoo>
+	<record id="view_project_form_extends" model="ir.ui.view">
+		<field name="name">project.form.view.extends</field>
+		<field name="model">project.project</field>
+		<field name="inherit_id" ref="project.edit_project" />
+		<field name="arch" type="xml">
+			<xpath expr="//page[@name='settings']" position="after">
+                <page string="Presupuesto">
+                    <group>
+                        <group>
+                            <field name="budget_hours"/>
+							<field name="consumed_hours"/>
+							<field name="residual_hours"/>
+							<field name="progress_hours" widget="progressbar"/>
+                        </group>
+                        <group></group>
+                    </group>
+					<field name="hours_ids" string="Horas" nolabel="1" readonly="1">
+						<tree editable="bottom">
+							<field name="employee_id" widget="many2one_avatar_employee"/>
+							<field name="name"/>
+							<!--<field name="month"/>
+							<field name="year"/>-->
+							<field name="amount_hours"/>
+							<field name="budget_hours"/>
+							<field name="residual"/>
+						</tree>
+					</field>
+                </page>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="view_project_tree_extends" model="ir.ui.view">
+		<field name="name">project.tree.view.extends</field>
+		<field name="model">project.project</field>
+		<field name="inherit_id" ref="project.edit_project" />
+		<field name="arch" type="xml">
+			<field name="company_id" position="after">
+				<field name="budget_hours" string="Hrs. Presupuestadas"/>
+				<field name="consumed_hours" string="Hrs. Consumidas"/>
+				<field name="progress_hours" widget="progressbar" string="Progreso"/>
+			</field>
+		</field>
+	</record>
+</odoo>

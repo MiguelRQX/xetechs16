@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<odoo>
+    <menuitem id="menu_todo_root" name="To Do" web_icon="todo_list,static/description/icon.png"/>
+</odoo>

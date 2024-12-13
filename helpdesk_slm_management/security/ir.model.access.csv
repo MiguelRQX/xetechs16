@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sla_contract_user,sla.contract.user,model_sla_contract,helpdesk.group_helpdesk_user,1,1,1,0
+access_sla_contract_manager,sla.contract.manager,model_sla_contract,helpdesk.group_helpdesk_manager,1,1,1,1
+access_wizard_invoice_fel_user,wizard.invoice.fel.user,model_wizard_invoice_fel,helpdesk.group_helpdesk_user,1,1,1,0
+access_wizard_invoice_fel_manager,wizard.invoice.fel.manager,model_wizard_invoice_fel,helpdesk.group_helpdesk_manager,1,1,1,1

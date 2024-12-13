@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<odoo>
+  <data>
+ 	  <template id="information_payment_invoice" inherit_id="account.report_invoice_document">
+      <xpath expr="//p[@name='payment_communication']" position='after'>
+        <div style="font-size:13px">
+ 
+          <br/>
+          <strong>Información de Pago:</strong><br/> 
+          Puedes realizar tu pago en la siguiente cuenta:<br/>
+
+          <p>
+            <strong>Nombre del Banco</strong>:  Banco Industrial<br/>
+            <strong>Nombre de la Cuenta</strong>:  XETECHS S.A.<br/>
+            <strong>Número de cuenta (USD): </strong> 323-006815-1<br/>
+            <strong> Código SWIFT</strong>:  INDLGTGC<br/>
+          </p>
+          <p> Realizado tu pago, puedes enviarnos una imagen con los datos de tu transferencia o depósito a cxc@xetechs.com </p>
+                              
+        </div> 
+      </xpath>
+    </template>
+  </data>
+</odoo>
+
+
+
+        

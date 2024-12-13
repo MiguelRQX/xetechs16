@@ -1,0 +1,31 @@
+<odoo>
+    <!-- <report
+            id="report_customer_support_pdf"
+            string="Reporte Soporte Tecnico"
+            model="wizard.customer.hours"
+            report_type="qweb-pdf"
+            name="helpdesk_tracker_hours.customer_hours_document"
+            file="helpdesk_tracker_hours.customer_hours_document"
+    /> -->
+    <record id="report_customer_support_pdf" model="ir.actions.report">
+        <field name="name">Reporte Soporte Tecnico</field>
+        <field name="model">wizard.customer.hours</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">helpdesk_tracker_hours.customer_hours_document</field>
+        <field name="report_file">helpdesk_tracker_hours.customer_hours_document</field>
+    </record>
+    <record id="report_customer_support_format" model="report.paperformat">
+        <field name="name">Formato Reporte Soporte Tecnico</field>
+        <field name="default" eval="True"/>
+        <field name="format">Letter</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">30</field>
+        <field name="margin_bottom">30</field>
+        <field name="margin_right">10</field>
+        <field name="margin_left">10</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">30</field>
+        <field name="dpi">110</field>
+        <field name="report_ids" eval="[(4, ref('helpdesk_tracker_hours.report_customer_support_pdf'))]"/>
+    </record>
+</odoo>

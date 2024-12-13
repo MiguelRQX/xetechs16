@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="helpdesk_form_view_extends2" model="ir.ui.view">
+            <field name="name">helpdesk.ticket.form.view.extends</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="priority" eval="21"/>
+            <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form" />
+            <field name="arch" type="xml">
+                <field name="kanban_state" position="before">
+                    <widget name="web_ribbon" title="Soporte Consumido" bg_color="bg-danger" attrs="{'invisible': [('subscription_status', '!=', 'done')]}"/>
+                    <widget name="web_ribbon" title="Soporte Expirado" bg_color="bg-danger" attrs="{'invisible': [('subscription_status', '!=', 'inactive')]}"/>
+                </field>
+                <xpath expr="//notebook[1]" position="inside">
+                    <page name="page_support_subscription" string="Suscripción de Soporte">
+                        <group>
+                            <group>
+                                <field name="contrated_hours"/>
+                                <field name="contrated_hours_real"/>
+                                <field name="progress" widget="progressbar"/>
+                            </group>
+                            <group>
+                                <field name="contrated_hours_real"/>
+                                <field name="contrated_hours_balance"/>
+                                <field name="subscription_status"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

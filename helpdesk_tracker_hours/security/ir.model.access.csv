@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_helpdesk_tracker_hours_user,helpdesk.tracker.hours.user,model_report_helpdesk_budget_hours,helpdesk.group_helpdesk_user,1,1,1,0
+access_helpdesk_tracker_hours_manager,helpdesk.tracker.hours.manager,model_report_helpdesk_budget_hours,helpdesk.group_helpdesk_manager,1,1,1,1
+access_wizard_report_customer_hours_user,helpdesk.report.customer.hours.user,model_wizard_customer_hours,helpdesk.group_helpdesk_user,1,1,1,0
+access_wizard_report_customer_hours_manager,helpdesk.report.customer.hours.manager,model_wizard_customer_hours,helpdesk.group_helpdesk_manager,1,1,1,1
+access_helpdesk_contract_type_user,helpdesk.contract.type.user,model_support_contract_type,helpdesk.group_helpdesk_user,1,1,1,0
+access_helpdesk_contract_type_manager,helpdesk.contract.type.manager,model_support_contract_type,helpdesk.group_helpdesk_manager,1,1,1,1

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="wizard_invoice_fel" model="ir.ui.view">
+            <field name="name">wizard.invoiced.fel</field>
+            <field name="model">wizard.invoice.fel</field>
+            <field name="arch" type="xml">
+                <form string="Facturación FEL">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="sla_id" invisible="1" force_save="1"/>
+                                <field name="partner_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                <field name="qty_fel" required="1"/>
+                                <field name="price_dte" />
+                            </group>
+                            <group>
+                                <field name="currency_id" invisible="1" force_save="1"/>
+                                <field name="journal_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" domain="[('type', '=', 'sale')]"/>
+                                <field name="qty_extra_fel" />
+                                <field name="extra_price_dte" />
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="action_invoice_fel" string="Facturar" class="btn-success" type="object" />
+                        <button string="Cancelar" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_wizard_invoice_fel" model="ir.actions.act_window">
+            <field name="name">wizard.invoice.fel</field>
+            <field name="res_model">wizard.invoice.fel</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wizard_invoice_fel"/>
+            <field name="target">new</field>
+        </record>
+
+        <!--<menuitem id="report_stock_pdf" name="Informe consolidado"
+              action="action_wizard_invoice_fel"
+              parent="stock.menu_stock_root" sequence="99"/>-->
+        
+    </data>
+</odoo>

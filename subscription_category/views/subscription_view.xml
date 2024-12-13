@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--vista de form-->
+    <record id="subscription_form_inherit" model="ir.ui.view">
+        <field name="name">subscription_category.form.inherit</field>
+        <field name="model">sale.subscription</field>
+        <field name="inherit_id" ref="sale_subscription.sale_subscription_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="category_id"  />
+            </xpath>
+        </field>
+    </record>
+
+    <!--vista de lista-->
+    <record id="subscription_tree_inherit" model="ir.ui.view">
+        <field name="name">subscription_tree.tree.inherit</field>
+        <field name="model">sale.subscription</field>
+        <field name="inherit_id" ref="sale_subscription.sale_subscription_view_list"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="category_id" />               
+            </xpath>
+        </field>
+    </record>
+
+
+   <!--vista Kanban-->
+    <record id="subscription_category_kanban_inherit" model="ir.ui.view">
+        <field name="name">subscription.category.inherit</field>
+        <field name="model">sale.subscription</field>
+        <field name="inherit_id" ref="sale_subscription.sale_subscription_view_kanban"/>
+        <field name="arch" type="xml"> 
+            <xpath expr="//field[@name='user_id']" position="before">
+                <field name="category_id"/>
+            </xpath>
+        </field>
+    </record>
+
+
+
+      <!--Mantenimiento-->
+      <!--Menu form category-->
+    <record id="subscription_category_form" model="ir.ui.view">
+        <field name="name">subscription.category.form</field>
+        <field name="model">subscription.category</field>
+        <field name="arch" type="xml">
+            <form string="Categoria">
+             <sheet>
+             <div class="oe_title">
+                        <p>Nombre de la Categoria</p>
+                            <h3><field name="name"/></h3>
+                </div>
+                <group>
+                    <group>
+                        <field name="active"/>
+                    </group>
+                </group>
+                <field name="description" placeholder="Add a description..."/>
+             </sheet>
+            </form>
+        </field>
+    </record>
+
+
+      <!--Menu tree category-->
+    <record id="subscription_category_tree" model="ir.ui.view">
+        <field name="name">subscription.category.tree</field>
+        <field name="model">subscription.category</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!--<record id="subscription_category_action" model="ir.ui.view">
+        <field name="name">Categorías de Suscripciones</field>
+        <field name="res_model">subscription.category</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+    </record>-->
+
+    <record id="subscription_category_action" model="ir.actions.act_window">
+        <field name="name">Categorías de Suscripciones</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">subscription.category</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="subscription_category_tree"/>
+    </record>
+
+
+    <menuitem id="subscription_category" 
+        name="Subscription Category"  
+        parent="sale_subscription.menu_sale_subscription_config"
+        action="subscription_category_action"
+        sequence="5"
+        groups="sale_subscription.group_sale_subscription_manager"/>
+
+
+
+</odoo>

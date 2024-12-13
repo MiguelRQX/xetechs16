@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+
+   <!--<record id="action_subscription_category" model="ir.actions.act_window">
+        <field name="name">Subscription Category</field>
+        <field name="res_model">subscription.category</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Subscription Category" id="subscription_category" action="action_subscription_category" parent="sale_subscription.menu_sale_subscription_config" sequence="5"/>-->
+
+
+</odoo>

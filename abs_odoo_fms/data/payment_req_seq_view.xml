@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="payment_managment_sequence_view" model="ir.sequence">
+            <field name="name">Payment Management</field>
+            <field name="code">payment.management</field>
+            <field name="prefix">Payment Managment - </field>
+            <field name="padding">1</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

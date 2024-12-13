@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="wizard_customer_hours_form" model="ir.ui.view">
+        <field name="name">wizard.customer.hours.form</field>
+        <field name="model">wizard.customer.hours</field>
+        <field name="arch" type="xml">
+            <form string="Reporte Plan de soporte">
+                <group>
+                    <group>
+                        <field name="date_from"/>
+                    </group>
+                    <group>
+                        <field name="date_to"/>
+                        <field name="company_id" force_save="1" invisible="1"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_generate_report" string="Generar" type="object" class="oe_highlight"/>
+                    <button name="send_email" string="Enviar" type="object" class="oe_highlight"/>
+                    <button special="cancel" string="_Cancel" class="oe_link" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_wizard_customer_hours" model="ir.actions.act_window">
+        <field name="name">Reporte Planes de Soporte</field>
+        <field name="res_model">wizard.customer.hours</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_wizard_customer_hours" />
+    </record>
+
+    <menuitem
+        id="menu_report_customer_hours"
+        parent="helpdesk.helpdesk_ticket_report_menu_main"
+        sequence="6"
+        action="action_wizard_customer_hours"
+    />
+</odoo>

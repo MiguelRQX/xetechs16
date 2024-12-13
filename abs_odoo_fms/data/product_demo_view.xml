@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="abs_odoo_fms.product_product_demo" model="product.product">
+            <field name="name">FMS Service</field>
+            <field name="detailed_type">service</field>
+            <field name="default_code">FMS</field>
+            <field name="uom_id" ref="uom.product_uom_unit"/>
+            <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        </record>
+    </data>
+</odoo>

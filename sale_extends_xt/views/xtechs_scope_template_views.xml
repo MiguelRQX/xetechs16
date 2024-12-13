@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="xtechs_scope_template_view_form" model="ir.ui.view">
+        <field name="name">xtechs.scope.template.view.form</field>
+        <field name="model">xtechs.scope.template</field>
+        <field name="arch" type="xml">
+            <form string="Plantillas de alcance">
+                <sheet>
+                    <group>
+                    <label for="template_scope" string="Plantilla de Alcance"/>
+                        <h1>
+                            <field name="template_scope" default_focus="1" placeholder="Plantilla de Alcance" />
+                        </h1>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="active" />
+                            <field name="name" invisible="1" />
+                        </group>
+                        <group>
+                            <field name="company_id"  attrs="{'invisible': [('hide_company', '=', True)], 'required':[('hide_company','=', False)]}"/>
+                            <field name="hide_company" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="line_ids" string="Alcances">
+                            <field name="line_ids" colspan="4" nolabel="1" widget="section_and_note_one2many"  >
+                                <tree>
+                                    <control>
+                                        <create
+                                            string="Añadir alcance"
+                                        />
+                                        <create
+                                            string="Añadir sección"
+                                            context="{'default_display_type': 'line_section'}"
+                                        />
+                                        <create
+                                            string="Añadir nota"
+                                            context="{'default_display_type': 'line_note'}"
+                                        />
+                                    </control>
+                                    <field name="display_type" invisible="1"/>
+                                    <field name="sequence" widget="handle" />
+                                    <field name="scope_id" attrs="{'required': [('display_type', '=', False)]}"/>
+                                    <field name="description" attrs="{'required': [('display_type', '=', False)]}"/>
+                                    <field name="time" />
+                                    <field name="dev_time"/>
+                                    <field name="total_time"/>
+                                    <field name="uom_id" />
+                                    <field name="name" widget="section_and_note_text" width="0" string="."/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="display_type" invisible="1"/>
+                                        <field name="sequence" widget="handle" invisible="1"/>
+                                        <group attrs="{'invisible': [('display_type', '!=', False)]}">
+                                            <field name="scope_id"/>
+                                        </group>
+                                        <group attrs="{'invisible': [('display_type', '!=', False)]}">
+                                            <field name="time"/>
+                                            <field name="dev_time"/>
+                                            <field name="total_time"/>
+                                            <field name="uom_id"/>
+                                        </group>
+                                    </group>
+                                    <field name="description" nolabel="1" attrs="{'invisible': [('display_type', '!=', False)]}"/>
+                                    <field name="name" nolabel="1" attrs="{'invisible': [('display_type', '=', False)]}"/>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="xtechs_scope_template_view_tree">
+        <field name="name">xtechs.scope.template.view.tree</field>
+        <field name="model">xtechs.scope.template</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="template_scope" />
+                <field name="active" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="xtechs_scope_templtae_action" model="ir.actions.act_window">
+        <field name="name">Plantilla de alcances</field>
+        <field name="res_model">xtechs.scope.template</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Crear Plantilla de Alcances</p>
+        </field>
+    </record>
+
+    <menuitem id="xtechs_scope_template_menu" action="xtechs_scope_templtae_action" 
+        parent="xtechs_proyects" sequence="103"/>
+
+
+</odoo>

@@ -1,0 +1,33 @@
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="helpdesk_ticket_develop_inherit" model="ir.ui.view">
+            <field name="name">helpdesk_ticket_develop</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk_parent_child.helpdesk_ticket_view_inherit2"/>
+            <field name="arch" type="xml">
+                <field name="parent_id" position="after">
+                    <field name="team_id_name" invisible = "True"/>
+                    <field name="hours_estimate" attrs="{'required': [('team_id_name','=', 'Development Team')],'invisible': [('team_id_name','!=', 'Development Team')]}"/>
+                    <field name="date_deadline" attrs="{'required': [('team_id_name','=', 'Development Team')],'invisible': [('team_id_name','!=', 'Development Team')]}"/>
+                    <field name="project_client_id" attrs="{'required': [('team_id_name','=', 'Development Team')],'invisible': [('team_id_name','!=', 'Development Team')]}"/>
+                    <field name="task_id" attrs="{'required': [('team_id_name','=', 'Development Team')],'invisible': [('team_id_name','!=', 'Development Team')]}"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="helpdesk_form_inherit_timesheet" model="ir.ui.view">
+            <field name="name">Helpdesk.form.inherit.timesheet</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_timesheet"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='timesheets']/field[@name='timesheet_ids']" position="attributes">
+                    <attribute name="context">{'default_project_id': project_id, 'default_project_task_id': task_id}</attribute>
+                </xpath>
+                <xpath expr="//page[@name='timesheets']/field[@name='timesheet_ids']/tree/field[@name='task_id']" position="after">
+                    <field name="project_task_id" invisible = "True"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
